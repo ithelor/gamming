@@ -24,33 +24,34 @@ function gamming($pt, $g, $alph)
 
         $cur_pt_sym = mb_strcut($pt, $i, 1);
 
-        if ($cur_pt_sym == ' ') array_push($result, $cur_pt_sym);
+//        if ($cur_pt_sym == "/\s+/") array_push($result, ' ');
+        if (!array_search($cur_pt_sym, $alph)) { echo "\nPushing " . $cur_pt_sym; array_push($result, $cur_pt_sym); }
         else {
 
             $cur_g_sym = mb_strcut($g, $j, 1);
 
-            echo "<br><br>cur_pt_sym: " . $cur_pt_sym;
-            echo "<br>cur_g_sym: " . $cur_g_sym;
+            echo "\ncur_pt_sym: " . $cur_pt_sym;
+            echo "\ncur_g_sym: " . $cur_g_sym;
 
             $cur_pt_num = array_search($cur_pt_sym, $alph);
             $cur_g_num = array_search($cur_g_sym, $alph);
 
-            echo "<br>cur_pt_num: " . $cur_pt_num;
-            echo "<br>cur_g_num: " . $cur_g_num;
+            echo "\ncur_pt_num: " . $cur_pt_num;
+            echo "\ncur_g_num: " . $cur_g_num;
 
-            $result_num = $cur_pt_num + $cur_g_num + 1;
+            $result_num = $cur_pt_num + $cur_g_num;
 
-            while ($result_num >= count($alph)) {
+            while ($result_num > count($alph)) {
 
-                echo "<br>$result_num: " . $result_num;
-                echo "<br>count(alph): " . count($alph);
+                echo "\nresult_num: " . $result_num;
+                echo "\ncount(alph): " . count($alph);
 
-                $result_num -= count($alph);
-                echo "<br>result: " . $result_num;
+                $result_num -= (count($alph) - 1);
+                echo "\nresult: " . $result_num;
             }
 
-            echo "<br>result_num: " . $result_num;
-            echo "<br>alph: " . $alph[$result_num];
+            echo "\nresult_num: " . $result_num;
+            echo "\nalph: " . $alph[$result_num];
 
             array_push($result, $alph[$result_num]);
 
@@ -74,32 +75,32 @@ function ungamming($ct, $g, $alph)
         $cur_pt_sym = mb_strcut($ct, $i, 1);
         $cur_g_sym = mb_strcut($g, $j, 1);
 
-            echo "<br><br>cur_pt_sym: " . $cur_pt_sym;
-            echo "<br>cur_g_sym: " . $cur_g_sym;
+            echo "\ncur_pt_sym: " . $cur_pt_sym;
+            echo "\ncur_g_sym: " . $cur_g_sym;
 
         $cur_pt_num = array_search($cur_pt_sym, $alph);
 
-        if ($cur_pt_sym == ' ') array_push($result, $cur_pt_sym);
+        if (!array_search($cur_pt_sym, $alph)) { echo "\nPushing " . $cur_pt_sym; array_push($result, $cur_pt_sym); }
         else {
 
             $cur_g_num = array_search($cur_g_sym, $alph);
 
-            echo "<br>cur_pt_num: " . $cur_pt_num;
-            echo "<br>cur_g_num: " . $cur_g_num;
+            echo "\ncur_pt_num: " . $cur_pt_num;
+            echo "\ncur_g_num: " . $cur_g_num;
 
-            $result_num = $cur_pt_num - $cur_g_num - 1;
+            $result_num = $cur_pt_num - $cur_g_num;
             while ($result_num > count($alph)) {
 
-                echo "<br>$result_num: " . $result_num;
-                echo "<br>count(alph): " . count($alph);
+                echo "\n$result_num: " . $result_num;
+                echo "\ncount(alph): " . count($alph);
 
-                $result_num -= count($alph);
-                echo "<br>result: " . $result;
+                $result_num -= (count($alph) - 1);
+                echo "\nresult: " . $result;
             }
-            if ($result_num <= 0) $result_num = count($alph) - abs($result_num);
+            if ($result_num <= 0) $result_num = count($alph) - abs($result_num - 1);
 
-            echo "<br>result_num: " . $result_num;
-            echo "<br>alph: " . $alph[$result_num];
+            echo "\nresult_num: " . $result_num;
+            echo "\nalph: " . $alph[$result_num];
 
             array_push($result, $alph[$result_num]);
 
@@ -110,31 +111,51 @@ function ungamming($ct, $g, $alph)
     return implode($result);
 }
 
-//$alph = array(
-//    "1" => "A",     "8"  => "H", "15" => "O",
-//    "2" => "B",     "9"  => "I", "16" => "P",   "22" => "V",
-//    "3" => "C",     "10" => "J", "17" => "Q",   "23" => "W",
-//    "4" => "D",     "11" => "K", "18" => "R",   "24" => "X",
-//    "5" => "E",     "12" => "L", "19" => "S",   "25" => "Y",
-//    "6" => "F",     "13" => "M", "20" => "T",   "26" => "Z",
-//    "7" => "G",     "14" => "N", "21" => "U",
-//);
-
-$alph = array();
+$alph = array(
+    "0" => null,
+);
 
 for ($i = 65; $i < 91; $i++) array_push($alph, chr($i));
 
+var_dump($alph);
+
 $plaintext = file_get_contents($_FILES['pt_source']['tmp_name']);
 $gamma = file_get_contents($_FILES['g_source']['tmp_name']);
-
 echo "Original plain text: " . $plaintext . "<br>Original gamma: " . $gamma . "<br>";
 
 $gamma = _trim($gamma); $plaintext = _trim($plaintext);
+echo "<br>Trimmed plain text: " . $plaintext . "<br>Trimmed gamma: " . $gamma;
 
-echo "<br>Trimmed plain text: " . $plaintext . "<br>Trimmed gamma: " . $gamma . "<br>";
+if(isset($_POST['actform']))
+{
+    $actform = $_POST['actform'];
+    if($actform == "encrypt") $result = gamming($plaintext, $gamma, $alph);
+    elseif($actform == "decrypt") $result = ungamming($plaintext, $gamma, $alph);
 
-echo "<br><br>Gamming result: " . gamming($plaintext, $gamma, $alph);
-echo "<br><br>Ungamming result: " . ungamming($plaintext, $gamma, $alph);
+    echo "<br><br>Result: " . $result;
+}
+
+file_put_contents("file.txt", $result);
+
+header('Content-type: plain/text');
+header('Content-Disposition: attachment; filename="file.txt"');
+//readfile('file.txt');
+
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$dbName = "gamming_db";
+
+$conn = mysqli_connect($hostname, $username, $password, $dbName) or die ("Unable to connect"); // подключение к БД по указанным данным
+
+$sql = "INSERT INTO history (id, plaintext, gamma, action, result)
+VALUES ('', '$plaintext', '$gamma', '$actform', '$result')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
 
 ?>
 

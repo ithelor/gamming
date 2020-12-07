@@ -1,13 +1,9 @@
 <?php
-require 'bootstrap.php';
+    include 'db.php';
 ?>
 
 <html lang=en>
 <link href=alt_styles.css rel=stylesheet />
-<!--
-<link rel="stylesheet" href="dark.scss">
-<script src="sweetalert2.js"></script>
--->
 
     <head>
         <title>Gamming</title>
@@ -17,7 +13,8 @@ require 'bootstrap.php';
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-4">
-                    <form action="input.php" method="post" enctype="multipart/form-data">
+                    <!--<form action="input.php" method="post" enctype="multipart/form-data">-->
+                    <form method="POST" id="form">
                         <div class="form-group" style="margin-top: 2em">
 
                             <input id="pt_source" type="file" name="pt_source" class="inputfile">
@@ -33,7 +30,7 @@ require 'bootstrap.php';
                             <input type="radio" name="actform" value="decrypt" /><label>&nbspDecryption</label>
                         </div>
                         <div class="wrapper" style="font-size:1.5em; margin-top: 2em; margin-bottom: 2em">
-                            <button type="submit" class="bouncy">Proceed</button>
+                            <button id="proceed" name="proceed" class="bouncy">Proceed</button>
                         </div>
                     </form>
                 </div>
@@ -45,7 +42,7 @@ require 'bootstrap.php';
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Plain text</th>
+                        <th>Plaintext</th>
                         <th>Gamma</th>
                         <th>Action</th>
                         <th>Result</th>
@@ -53,17 +50,17 @@ require 'bootstrap.php';
                     </thead>
                     <tbody>
                     <?php
-                    $ids = getIdList();
+                    $users = getIDsList();
                     ?>
 
-                    <?php if(!empty($ids)): ?>
-                        <?php foreach($ids as $id): ?>
+                    <?php if(!empty($users)): ?>
+                        <?php foreach($users as $user): ?>
                             <tr>
-                                <th scope="row"><?= $id['id'] ?></th>
-                                <th><?= $id['plaintext'] ?></th>
-                                <th><?= $id['gamma'] ?></th>
-                                <th><?= $id['action'] ?></th>
-                                <th><?= $id['result'] ?></th>
+                                <th scope="row"><?= $user['id'] ?></th>
+                                <th><?= $user['plaintext'] ?></th>
+                                <th><?= $user['gamma'] ?></th>
+                                <th><?= $user['action'] ?></th>
+                                <th><?= $user['result'] ?></th>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -75,8 +72,8 @@ require 'bootstrap.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="form.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>-->
-    </>
-
+    <script src="ajxParse.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>-->
 </html>
