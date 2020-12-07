@@ -3,10 +3,11 @@
 function register(array $data)
 {
     $values = [
-        $data['name'],
-        $data['email'],
-        password_hash($data['password'], PASSWORD_ARGON2ID),
-        (new DateTime())->format('Y-m-d H:i:s')
+        $data['id'],
+        $data['plaintext'],
+        $data['gamma'],
+        $data['action'],
+        $data['result'],
     ];
 
     return insert($values);
@@ -45,7 +46,7 @@ function validate(array $request)
 
 function isEmailAlreadyExists(string $email)
 {
-    if (getUserByEmail($email)) {
+    if (getUserById($email)) {
         return true;
     }
 

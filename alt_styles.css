@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import '/registration/dark.scss';
+
 body {
 	background-color: black;
 	color: white;
@@ -72,4 +72,43 @@ button:hover{
 
 .wrapper {
 	text-align: center;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+	display:inline-block;
+	padding:0.46em 1.6em;
+	border:0.1em solid #eeeeee;
+	margin:0 0.2em 0.2em 0;
+	border-radius:0.12em;
+	box-sizing: border-box;
+	text-decoration:none;
+	font-family:'Britannic Bold',sans-serif;
+	font-weight:300;
+	color:#eeeeee;
+	text-shadow: 0 0.04em 0.04em rgba(0,0,0,0);
+	background-color:rgba(0, 0, 0, 0);
+	text-align:center;
+	transition: all 0.15s;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+	text-shadow: 0 0 2em rgba(0, 0, 0, 1);
+	color:rgba(0, 0, 0, 0.8);
+	border-color:rgba(0, 0, 0, 0.8);
+	background-color: #db778d;
+	font-family:'Bauhaus 93',sans-serif;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
 }

@@ -30,9 +30,9 @@ function getUserByEmail(string $email)
     return false;
 }
 
-function getUsersList()
+function getIdList()
 {
-    $query = 'SELECT * FROM users ORDER BY id DESC';
+    $query = 'SELECT * FROM cypher ORDER BY id DESC';
 
     $db = get_connection();
     return $db->query($query,PDO::FETCH_ASSOC);

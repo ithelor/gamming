@@ -19,12 +19,13 @@ require 'bootstrap.php';
                 <div class="col-4">
                     <form action="input.php" method="post" enctype="multipart/form-data">
                         <div class="form-group" style="margin-top: 2em">
-                            <label>Plain text</label>
-                            <input id="pt_source" type="file" name="pt_source">
+
+                            <input id="pt_source" type="file" name="pt_source" class="inputfile">
+                            <label for="pt_source">Choose a plain text file</label>
                         </div>
                         <div class="form-group">
-                            <label for="filename">Gamma</label>
-                            <input id="g_source" type="file" name="g_source">
+                            <input id="g_source" type="file" name="g_source" class="inputfile">
+                            <label for="g_source">Choose a gamma file</label>
                         </div>
                         <div class="form-group">
                             <label for="repeat-password">Method</label> <br>
@@ -36,6 +37,38 @@ require 'bootstrap.php';
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Plain text</th>
+                        <th>Gamma</th>
+                        <th>Action</th>
+                        <th>Result</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $ids = getIdList();
+                    ?>
+
+                    <?php if(!empty($ids)): ?>
+                        <?php foreach($ids as $id): ?>
+                            <tr>
+                                <th scope="row"><?= $id['id'] ?></th>
+                                <th><?= $id['plaintext'] ?></th>
+                                <th><?= $id['gamma'] ?></th>
+                                <th><?= $id['action'] ?></th>
+                                <th><?= $id['result'] ?></th>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
