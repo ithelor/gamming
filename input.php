@@ -6,8 +6,7 @@
 
 function _trim($str)
 {
-//    $trimmed = strtoupper(preg_replace("/\s+/", "", $str));
-    $trimmed = strtoupper($str);
+    $trimmed = strtoupper(preg_replace("/\s+/", "", $str));
 
     return $trimmed;
 }
@@ -123,7 +122,10 @@ $plaintext = file_get_contents($_FILES['pt_source']['tmp_name']);
 $gamma = file_get_contents($_FILES['g_source']['tmp_name']);
 echo "Original plain text: " . $plaintext . "<br>Original gamma: " . $gamma . "<br>";
 
-$gamma = _trim($gamma); $plaintext = _trim($plaintext);
+$pt_original = $plaintext; $g_original = $gamma;
+
+$plaintext = strtoupper($plaintext);
+$gamma = _trim($gamma);
 echo "<br>Trimmed plain text: " . $plaintext . "<br>Trimmed gamma: " . $gamma;
 
 if(isset($_POST['actform']))
@@ -146,15 +148,19 @@ $username = "root";
 $password = "";
 $dbName = "gamming_db";
 
-$conn = mysqli_connect($hostname, $username, $password, $dbName) or die ("Unable to connect"); // подключение к БД по указанным данным
+$conn = mysqli_connect($hostname, $username, $password, $dbName) or die ("Unable to connect");
 
 $sql = "INSERT INTO history (id, plaintext, gamma, action, result)
-VALUES ('', '$plaintext', '$gamma', '$actform', '$result')";
+VALUES ('', '$pt_original', '$g_original', '$actform', '$result')";
 
-if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+if ($plaintext != "" && $gamma != "") {
+    if (mysqli_query($conn, $sql)) {
+        echo "\nHisrory updated";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    //error
 }
 
 ?>

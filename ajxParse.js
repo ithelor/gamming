@@ -20,6 +20,17 @@ $(document).on("submit", "form", function(event) {
         link.remove();
     }
 
+    function loadFile(filePath) {
+        let result = null;
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", filePath, false);
+        xmlhttp.send();
+        if (xmlhttp.status === 200) {
+            result = xmlhttp.responseText;
+        }
+        return result;
+    }
+
     $.ajax({
         type: "POST",
         url: "input.php",
@@ -27,8 +38,15 @@ $(document).on("submit", "form", function(event) {
         data: formdata,
         contentType: false,
         processData: false,
-        success: function(data){
-            downloadURI('file.txt', 'file.txt');
+        success: function(data) {
+            console.log(loadFile('file.txt'));
+            downloadURI('file.txt', '[Encrypted] ' + loadFile('file.txt') + '.txt');
+            swal({
+                title: "Succesfully registered!",
+                icon: "success",
+            }).then(() => {
+                location.reload();
+            });
         }
     }).done(function(result)
     {

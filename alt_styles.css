@@ -112,3 +112,11 @@ button:hover{
 .inputfile + label {
 	cursor: pointer; /* "hand" cursor */
 }
+
+.alt{
+	color: #db778d
+}
+
+/*
+.alt:hover { color: #eeeeee }
+*/

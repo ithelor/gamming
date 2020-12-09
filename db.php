@@ -7,7 +7,7 @@ function get_connection()
 
 function getIDsList()
 {
-    $query = 'SELECT * FROM history ORDER BY id DESC';
+    $query = 'SELECT * FROM history ORDER BY id DESC LIMIT 5';
 
     $db = get_connection();
     return $db->query($query,PDO::FETCH_ASSOC);
