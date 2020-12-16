@@ -1,4 +1,4 @@
-$(document).on("submit", "form", function(event) {
+$(document).on("submit", "form", function() {
 
     var pt_input = document.getElementById('pt_source'),
         g_input = document.getElementById('g_source');
@@ -10,6 +10,7 @@ $(document).on("submit", "form", function(event) {
     formdata.append( 'pt_source', pt_input.files[0] );
     formdata.append( 'g_source', g_input.files[0] );
 
+    // функция скачивания файла шифр-текста
     function downloadURI(uri, name)
     {
         var link = document.createElement("a");
@@ -20,6 +21,7 @@ $(document).on("submit", "form", function(event) {
         link.remove();
     }
 
+    // функция чтения файла шифр-текста
     function loadFile(filePath) {
         let result = null;
         const xmlhttp = new XMLHttpRequest();
@@ -38,15 +40,27 @@ $(document).on("submit", "form", function(event) {
         data: formdata,
         contentType: false,
         processData: false,
-        success: function(data) {
+        success: function() {
+
             console.log(loadFile('file.txt'));
-            downloadURI('file.txt', '[Encrypted] ' + loadFile('file.txt') + '.txt');
+            downloadURI(
+                'file.txt',
+                loadFile('file.txt').toString().replace(/\s+/g, '').trim().toLowerCase() +
+                '.txt'
+            );
+
             swal({
                 title: "Succesfully registered!",
                 icon: "success",
             }).then(() => {
                 location.reload();
             });
+
+        },
+        error: function(xhr) {
+
+            alert ("Oopsie: " + xhr.statusText);
+            
         }
     }).done(function(result)
     {
