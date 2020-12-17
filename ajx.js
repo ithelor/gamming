@@ -10,8 +10,8 @@ $(document).on("submit", "form", function() {
     formdata.append( 'pt_source', pt_input.files[0] );
     formdata.append( 'g_source', g_input.files[0] );
 
-    // функция скачивания файла шифр-текста
     function downloadURI(uri, name)
+    // функция скачивания файла шифр-текста
     {
         var link = document.createElement("a");
         link.setAttribute('download', name);
@@ -21,8 +21,9 @@ $(document).on("submit", "form", function() {
         link.remove();
     }
 
+    function loadFile(filePath)
     // функция чтения файла шифр-текста
-    function loadFile(filePath) {
+    {
         let result = null;
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", filePath, false);

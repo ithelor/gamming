@@ -13,7 +13,6 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-4">
-                    <!--<form action="input.php" method="post" enctype="multipart/form-data">-->
                     <form method="POST" id="form">
                         <div class="form-group" style="margin-top: 2em">
 
@@ -73,7 +72,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="ajx.js"></script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>-->
 </html>

@@ -12,3 +12,5 @@ function getIDsList()
     $db = get_connection();
     return $db->query($query,PDO::FETCH_ASSOC);
 }
+
+?>

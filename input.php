@@ -134,8 +134,9 @@ function isInputEmpty()
     return $isEmpty;
 }
 
-if (!isInputEmpty()) {
+if (!isInputEmpty())
 // проверка наличия входных данных
+{
 
     $alph = array(
         "0" => null,
